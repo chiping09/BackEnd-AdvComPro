@@ -1,14 +1,12 @@
-const express = require("express");
-const Sequelize = require("sequelize");
+const express = require('express');
+const Sequelize = require('sequelize');
 const app = express();
 
 app.use(express.json());
 
-const sequelize = new Sequelize('database','username','password',{
-    host: 'localhost',
-    dialect: 'sqlite',
-    storage: './Database/SQBooks.sqlite'
-})
+const dbUrl = ''
+
+const sequelize = new Sequelize(dbUrl);
 
 const Book = sequelize.define('book',{
     id: {
@@ -37,11 +35,11 @@ app.get('/books', (req,res) => {
 });
 
 app.get('/books/:id', (req,res) => {
-    Book.findByPk(req.params).then(book => {
+    Book.findByPk(req.params.id).then(book => {
         if (!book) {
             res.status(404).send('Book not found');
         } else {
-            res.json(Book);
+            res.json(book);
         }
     }).catch(err => {
         res.status(500).send(err);
