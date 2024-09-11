@@ -72,7 +72,7 @@ app.get("/books/:id", async (req, res) => {
 
 app.put("/books/:id", async (req, res) => {
     try{
-        const book = await Book.findByIdAndUpdate({id:req.params.id}, req.body, {
+        const book = await Book.findOneAndUpdate({id:req.params.id}, req.body, {
             new: true,
         });
         res.send(book);
@@ -84,7 +84,7 @@ app.put("/books/:id", async (req, res) => {
 
 app.delete("/books/:id", async (req, res) => {
     try {
-        const book = await Book.findByIdAndUpdate({id:req.params.id});
+        const book = await Book.findOneAndDelete({id:req.params.id});
         res.send(book);
     } catch (error) {
         res.status(500).send(error);
